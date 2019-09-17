@@ -27,6 +27,7 @@ function ItemDetail({ match }) {
     <div>
      <h1>{item.name}</h1>
      <img src={item.images.transparent} alt="" />
+     <h2>{item.rarity}</h2>
     </div>
   );
 }
