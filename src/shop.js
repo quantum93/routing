@@ -7,15 +7,18 @@ function Shop() {
     fetchItems();
   },[]);
 
+  const [items, setItems] = useState([]);
+
   const fetchItems = async () => {
     const data = await fetch('https://fortnite-public-api.theapinetwork.com/prod09/upcoming/get');
     const items = await data.json();
-    console.log(items);
+    console.log(items.items);
+    setItems(items.items);
   };
 
   return (
     <div>
-      <h1>Shop Page</h1>
+      {items.map(item => (<h1>{item.name}</h1>) )}
     </div>
   );
 }
