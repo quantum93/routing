@@ -18,7 +18,7 @@ function Shop() {
 
   return (
     <div>
-      {items.map(item => (<h1>{item.name}</h1>) )}
+      {items.map(item => (<h1 key={item.itemid}>{item.name}</h1>) )}
     </div>
   );
 }
