@@ -2,83 +2,89 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Link} from 'react-router-dom';
 
-// function ItemDetail({ match }) {
-//
-//   useEffect(() => {
-//     fetchItem();
-//     console.log(match)
-//   },[]);
-//
-//   const [item, setItem] = useState({});
-//
-//   const fetchItem = async () => {
-//     const fetchItem = await fetch(`https://fortnite-public-api.theapinetwork.com/prod09/upcoming/get?ids=${match.params.id}`);
-//     const item = await fetchItem.json();
-//       setItem(item);
-//     console.log(item);
-//
-//   };
-//
-//   console.log("this is the item name", item.name)
-//
-//   return (
-//     <div>
-//      <h1>{item.name}</h1>
-//     </div>
-//   );
-// }
-//
-// export default ItemDetail;
+function ItemDetail({ match }) {
 
-class ItemDetail extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      loaded: false,
-      item: null
-    }
-  }
+  useEffect(() => {
+    fetchItem();
+    console.log(match)
+  },[]);
 
-  fetchItem = () => {
-    fetch(`https://fortnite-public-api.theapinetwork.com/prod09/item/get?id=${this.props.match.params.id}`)
-    .then((response) => response.json())
-    .then(
-      (result) => {
-        console.log("this is the item as sent from the API", result)
-        this.setState({
-          loaded:true,
-          item: result
-        })
-        this.forceUpdate();
-      })
-  }
+  const [item, setItem] = useState({
+    images:{}
+  });
 
-  componentDidMount(){
-    this.fetchItem();
-  }
+  const fetchItem = async () => {
+    const fetchItem = await fetch(`https://fortnite-public-api.theapinetwork.com/prod09/item/get?ids=${match.params.id}`);
+    const item = await fetchItem.json();
+      setItem(item);
+    console.log(item);
 
-  render () {
+  };
 
-    let apiItem;
-    if (this.state.loaded === true){
-      apiItem = (
-        <div>
-          <h1>{this.state.item.name}</h1>
-          <img src={this.state.item.images.transparent} />
-          <h2>{this.state.item.rarity}</h2>
-        </div>
-      )
-    } else {
-      apiItem = <h1>"Loading........"</h1>
-    }
+  console.log("this is the item name", item.name)
 
-
-    return (
-      <div>
-        {apiItem}
-      </div>
-    )
-  }
+  return (
+    <div>
+     <h1>{item.name}</h1>
+     <img src={item.images.transparent} alt="" />
+    </div>
+  );
 }
 
 export default ItemDetail;
+
+
+// Hugh's approach...
+
+// class ItemDetail extends React.Component {
+//   constructor(props){
+//     super(props)
+//     this.state = {
+//       loaded: false,
+//       item: null
+//     }
+//   }
+//
+//   fetchItem = () => {
+//     fetch(`https://fortnite-public-api.theapinetwork.com/prod09/item/get?id=${this.props.match.params.id}`)
+//     .then((response) => response.json())
+//     .then(
+//       (result) => {
+//         console.log("this is the item as sent from the API", result)
+//         this.setState({
+//           loaded:true,
+//           item: result
+//         })
+//         this.forceUpdate();
+//       })
+//   }
+//
+//   componentDidMount(){
+//     this.fetchItem();
+//   }
+//
+//   render () {
+//
+//     let apiItem;
+//     if (this.state.loaded === true){
+//       apiItem = (
+//         <div>
+//           <h1>{this.state.item.name}</h1>
+//           <img src={this.state.item.images.transparent} />
+//           <h2>{this.state.item.rarity}</h2>
+//         </div>
+//       )
+//     } else {
+//       apiItem = <h1>"Loading........"</h1>
+//     }
+//
+//
+//     return (
+//       <div>
+//         {apiItem}
+//       </div>
+//     )
+//   }
+// }
+//
+// export default ItemDetail;
